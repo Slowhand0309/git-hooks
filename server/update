@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+refname = ARGV[0]
+oldrev  = ARGV[1]
+newrev  = ARGV[2]
+
+puts "push info >> \n(#{refname}) (#{oldrev[0,6]}) (#{newrev[0,6]})"
+
+sharevs = `git rev-list #{oldrev[0,6]}..#{newrev[0,6]}`.split("\n")
+sharevs.each do |rev|
+  message = `git cat-file commit #{rev} | sed '1,/^$/d'`
+
+  committer = "?"
+  messages = `git cat-file commit #{rev}`.split("\n")
+  messages.each do |msg|
+    committer = msg if msg.include?("committer")
+  end
+
+  puts committer
+  puts message
+end
+
