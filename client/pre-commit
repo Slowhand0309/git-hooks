@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+ABORT_COMMIT_BRANCHES = ['fix', 'product']
+current_branch = `git symbolic-ref HEAD`.split('/').last.strip
+
+if ABORT_COMMIT_BRANCHES.include?(current_branch)
+  puts "[ERROR] You can not commit to branch #{current_branch}. Please commit to another branch."
+  exit 1
+end
+
+exit 0
