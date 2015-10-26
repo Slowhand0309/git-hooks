@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+arg = ARGV[0]
+message = File.read(arg)
+
+$regex = /XXXXXX/
+
+if !$regex.match(message)
+  puts "message is not correct format"
+  exit 1
+end
